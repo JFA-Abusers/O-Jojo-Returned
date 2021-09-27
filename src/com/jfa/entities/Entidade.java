@@ -11,7 +11,7 @@ public class Entidade {
     protected BufferedImage sprite;
     protected int width, height;
     protected double  x, y;
-//testando o github uwu
+//testando o github uwu owo
 
     public Entidade(int x, int y, int width, int height, BufferedImage sprite){
         this.x = x;
