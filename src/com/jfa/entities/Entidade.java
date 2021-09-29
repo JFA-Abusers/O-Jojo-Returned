@@ -20,8 +20,8 @@ public class Entidade {
         this.height = height;
         this.sprite = sprite;
     }
-
-    public void setHeight(int height) {
+    /// mudança
+        public void setHeight(int height) {
         this.height = height;
     }
 
