@@ -21,7 +21,8 @@ public class Entidade {
         this.sprite = sprite;
     }
     /// mudança
-        public void setHeight(int height) {
+
+    public void setHeight(int height) {
         this.height = height;
     }
 
