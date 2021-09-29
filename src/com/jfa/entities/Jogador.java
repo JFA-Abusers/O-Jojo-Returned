@@ -2,6 +2,7 @@ package com.jfa.entities;
 
 import com.jfa.main.Game;
 import com.jfa.world.Camera;
+import com.jfa.world.Mundo;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -84,8 +85,8 @@ public class Jogador extends Entidade{
                     index=0;
             }
         }
-        Camera.x = this.getX() - (Game.WIDTH/2);
-        Camera.y = this.getY() - (Game.HEIGHT/2);
+        Camera.x = Camera.Clamp(this.getX() - (Game.WIDTH/2),0, Mundo.WIDTH*64 - Game.WIDTH);
+        Camera.y =Camera.Clamp(this.getY() - (Game.HEIGHT/2),0,Mundo.HEIGHT*64 - Game.HEIGHT);
     }
 
     public void render(Graphics g){
