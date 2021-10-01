@@ -12,6 +12,8 @@ public class Inimigo extends Entidade {
     private boolean mexeu = true;
 
     private int frames = 0, maxFrames = 9, index = 0, maxIndex = 2;
+    private BufferedImage[] inimigo_esq;
+    private BufferedImage[] inimigo_dir;
 
     public Inimigo(int x, int y, int width, int height, BufferedImage sprite) {
         super(x, y, width, height, sprite);
@@ -23,8 +25,6 @@ public class Inimigo extends Entidade {
         }
     }
 
-    private BufferedImage[] inimigo_esq;
-    private BufferedImage[] inimigo_dir;
 
     public void tick() {
         x++;
