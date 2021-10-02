@@ -55,22 +55,22 @@ public class Jogador extends Entidade{
 
     public void tick(){
         mexeu=false;
-        if(direita) {
+        if(direita && Mundo.taLivre((int)(x+vleocidad),(int)y)) {
             mexeu=true;
             x += vleocidad;
             dir = direita__dir;
 
 
-        } if(esquerda) {
+        } if(esquerda && Mundo.taLivre((int)(x-vleocidad), (int)y)) {
             mexeu=true;
             x -= vleocidad;
             dir = esquerda__dir;
         }
-        if(cima) {
+        if(cima && Mundo.taLivre((int)x, (int)(y-vleocidad))) {
             mexeu=true;
             y -= vleocidad;
             dir = cima__dir;
-        }else if(embaixo) {
+        }else if(embaixo && Mundo.taLivre((int)x, (int)(y+vleocidad))) {
             mexeu=true;
             y += vleocidad;
             dir= baixo__dir;
