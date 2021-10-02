@@ -10,8 +10,8 @@ import java.io.IOException;
 
 public class Mundo {
 
-    private Tile[] tiles;
-    public static int WIDTH, HEIGHT;
+    private static Tile[] tiles;
+    public static int WIDTH, HEIGHT, TAMANHO_TILE=64;
 
     public Mundo(String caminho){
         try {
@@ -43,6 +43,8 @@ public class Mundo {
                     } else if (pixelAtual == 0xFF444444) {
                         //lapides
                         tiles[xx+ (yy*WIDTH)]= new LapideTile(xx*64, yy*64, Tile.TILE_LAPIDE);
+                    }else if(pixelAtual==0xFFFFFC5B){
+                        tiles[xx+ (yy*WIDTH)]= new LapideTile(xx*64, yy*64, Tile.TILE_CHAO_BORDA);
                     }else if(pixelAtual== 0xFF0C5DFF) {
                         Game.jogador.setX(xx*64);
                         Game.jogador.setY(yy*64);
@@ -56,6 +58,32 @@ public class Mundo {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean taLivre(int xprox, int yprox){
+        //a logica por tras dessas contas de doido
+        //é que ce vai validar todas as 8 tiles
+        //em volta do nosso player
+        //porque agnt não quer ele atravessadno
+        //paredes.
+
+        int x1 = xprox/TAMANHO_TILE;
+        int y1 = yprox/TAMANHO_TILE;
+
+        int x2 = (xprox+TAMANHO_TILE-1)/TAMANHO_TILE;
+        int y2 = yprox/TAMANHO_TILE;
+
+        int x3 = xprox / TAMANHO_TILE;
+        int y3 = (yprox + TAMANHO_TILE - 1) / TAMANHO_TILE;
+
+        int x4 = (xprox+TAMANHO_TILE-1)/TAMANHO_TILE;
+        int y4 = (yprox+TAMANHO_TILE-1)/TAMANHO_TILE;
+
+        return !(tiles[x1+(y1*Mundo.WIDTH)] instanceof ParedeTile
+                ||tiles[x2+(y2*Mundo.WIDTH)] instanceof ParedeTile
+                ||tiles[x3+(y3*Mundo.WIDTH)] instanceof ParedeTile
+                ||tiles[x4+(y4*Mundo.WIDTH)] instanceof ParedeTile);
+
     }
 
     public void render(Graphics g){

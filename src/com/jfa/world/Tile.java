@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 public class Tile {
 
     public static BufferedImage TILE_CHAO= Game.spritesheet.pegaSprite(64, 256,64,64);
+    public static BufferedImage TILE_CHAO_BORDA= Game.spritesheet.pegaSprite(64, 256,64,64);
     public static BufferedImage TILE_PAREDE_CIMA= Game.spritesheet.pegaSprite(128, 256,64,64);
     public static BufferedImage TILE_LAPIDE= Game.spritesheet.pegaSprite(0, 256,64,64);
     public static BufferedImage TILE_CANTO_ESQUERDA= Game.spritesheet.pegaSprite(192, 256,64,64);
