@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 public class Jogador extends Entidade{
 
     public boolean cima,embaixo,esquerda,direita;
-    public double vleocidad= 3.0;
+    public double velocidade = 3.0;
     private boolean mexeu =false;
 
     private int frames = 0, maxFrames=6, index =0, maxIndex=4;
@@ -55,24 +55,24 @@ public class Jogador extends Entidade{
 
     public void tick(){
         mexeu=false;
-        if(direita && Mundo.taLivre((int)(x+vleocidad),(int)y)) {
+        if(direita && Mundo.taLivre((int)(x+ velocidade),(int)y)) {
             mexeu=true;
-            x += vleocidad;
+            x += velocidade;
             dir = direita__dir;
 
 
-        } if(esquerda && Mundo.taLivre((int)(x-vleocidad), (int)y)) {
+        } if(esquerda && Mundo.taLivre((int)(x- velocidade), (int)y)) {
             mexeu=true;
-            x -= vleocidad;
+            x -= velocidade;
             dir = esquerda__dir;
         }
-        if(cima && Mundo.taLivre((int)x, (int)(y-vleocidad))) {
+        if(cima && Mundo.taLivre((int)x, (int)(y- velocidade))) {
             mexeu=true;
-            y -= vleocidad;
+            y -= velocidade;
             dir = cima__dir;
-        }else if(embaixo && Mundo.taLivre((int)x, (int)(y+vleocidad))) {
+        }else if(embaixo && Mundo.taLivre((int)x, (int)(y+ velocidade))) {
             mexeu=true;
-            y += vleocidad;
+            y += velocidade;
             dir= baixo__dir;
         }
 

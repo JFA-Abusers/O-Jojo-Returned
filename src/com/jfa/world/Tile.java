@@ -14,6 +14,8 @@ public class Tile {
     public static BufferedImage TILE_CANTO_ESQUERDA= Game.spritesheet.pegaSprite(192, 256,64,64);
     public static BufferedImage TILE_CANTO_DIREITA= Game.spritesheet.pegaSprite(256, 256,64,64);
     public static BufferedImage TILE_PAREDE_VERTICAL= Game.spritesheet.pegaSprite(320, 256,64,64);
+    public static BufferedImage TILE_CHAO_CHIQUE= Game.spritesheet.pegaSprite(384, 256,64,64);
+    public static BufferedImage TILE_CHAO_CHIQUERRIMO= Game.spritesheet.pegaSprite(448, 256,64,64);
 
     private BufferedImage sprite;
     private int x,y;

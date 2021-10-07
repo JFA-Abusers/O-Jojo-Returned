@@ -14,6 +14,8 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 
 public class Game extends Canvas implements Runnable, KeyListener {
 
@@ -28,6 +30,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
 
     public static List<Entidade> entidades;
+    public static List<Inimigo> inimigos;
     public static Jogador jogador;
     public static Mundo mundo;
 
@@ -64,6 +67,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         //_______________________________________________________________________________________
 
         entidades = new ArrayList<Entidade>();
+        inimigos = new ArrayList<Inimigo>();
         spritesheet = new Spritesheet("/Spritesheet.png");
         jogador = new Jogador(0,0,64,64,spritesheet.pegaSprite(0,0,64,64));
         entidades.add(jogador);
@@ -122,6 +126,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         double diferenca = 0;
         int frames= 0;
         double timer = System.currentTimeMillis();
+        requestFocus();
         while(taRodando){
             //System.out.println("O jogo esta rodando");
             long agora = System.nanoTime();

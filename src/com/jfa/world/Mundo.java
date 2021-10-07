@@ -43,13 +43,22 @@ public class Mundo {
                     } else if (pixelAtual == 0xFF444444) {
                         //lapides
                         tiles[xx+ (yy*WIDTH)]= new LapideTile(xx*64, yy*64, Tile.TILE_LAPIDE);
+                    } else if (pixelAtual == 0xFFB5B5B5) {
+                        //chão chique
+                        tiles[xx+ (yy*WIDTH)]= new ChaoTile(xx*64, yy*64, Tile.TILE_CHAO_CHIQUE);
+                    } else if (pixelAtual == 0xFFC4CC35) {
+                        //chão chiquerrimo
+                        tiles[xx+ (yy*WIDTH)]= new ChaoTile(xx*64, yy*64, Tile.TILE_CHAO_CHIQUERRIMO);
                     }else if(pixelAtual==0xFFFFFC5B){
                         tiles[xx+ (yy*WIDTH)]= new LapideTile(xx*64, yy*64, Tile.TILE_CHAO_BORDA);
                     }else if(pixelAtual== 0xFF0C5DFF) {
                         Game.jogador.setX(xx*64);
                         Game.jogador.setY(yy*64);
                     }else if(pixelAtual==0xFFFF0000){
-                        Game.entidades.add(new Inimigo(xx*64,yy*64,64,64,Game.spritesheet.pegaSprite(0,0,64,64)));
+                        Inimigo inimigo = new Inimigo(xx*64,yy*64,64,64,Game.spritesheet.pegaSprite(0,0,64,64));
+                        Game.entidades.add(inimigo);
+                        Game.inimigos.add(inimigo);
+
                     }else {
                         tiles[xx+ (yy*WIDTH)]= new ChaoTile(xx*64,yy*64,Tile.TILE_CHAO);
                     }
@@ -67,17 +76,17 @@ public class Mundo {
         //porque agnt não quer ele atravessadno
         //paredes.
 
-        int x1 = xprox/TAMANHO_TILE;
-        int y1 = yprox/TAMANHO_TILE;
+        int x1 = (xprox+10)/TAMANHO_TILE;
+        int y1 = (yprox+30)/TAMANHO_TILE;
 
-        int x2 = (xprox+TAMANHO_TILE-1)/TAMANHO_TILE;
-        int y2 = yprox/TAMANHO_TILE;
+        int x2 = (xprox+30-1)/TAMANHO_TILE;
+        int y2 = (yprox+30)/TAMANHO_TILE;
 
-        int x3 = xprox / TAMANHO_TILE;
-        int y3 = (yprox + TAMANHO_TILE - 1) / TAMANHO_TILE;
+        int x3 = (xprox+30) / TAMANHO_TILE;
+        int y3 = (yprox + 30 - 1) / TAMANHO_TILE;
 
-        int x4 = (xprox+TAMANHO_TILE-1)/TAMANHO_TILE;
-        int y4 = (yprox+TAMANHO_TILE-1)/TAMANHO_TILE;
+        int x4 = (xprox+30-1)/TAMANHO_TILE;
+        int y4 = (yprox+30-1)/TAMANHO_TILE;
 
         return !(tiles[x1+(y1*Mundo.WIDTH)] instanceof ParedeTile
                 ||tiles[x2+(y2*Mundo.WIDTH)] instanceof ParedeTile
