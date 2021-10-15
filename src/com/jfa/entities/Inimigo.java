@@ -30,12 +30,13 @@ public class Inimigo extends Entidade {
 
 
     public void tick() {
+        if(!taBatendoNoPlayer()){
             if ((int) x < Game.jogador.getX() && Mundo.taLivre((int) (x + velocidade), this.getY()) && !taBatendo((int) (x + velocidade), this.getY())) {
                 x += velocidade;
-                dir=direita__dir;
+                dir = direita__dir;
             } else if ((int) x > Game.jogador.getX() && Mundo.taLivre((int) (x - velocidade), this.getY()) && !taBatendo((int) (x - velocidade), this.getY())) {
                 x -= velocidade;
-                dir=esquerda__dir;
+                dir = esquerda__dir;
             }
             if ((int) y < Game.jogador.getY() && Mundo.taLivre(this.getX(), (int) (y + velocidade)) && !taBatendo(this.getX(), (int) (y + velocidade))) {
                 y += velocidade;
@@ -51,6 +52,17 @@ public class Inimigo extends Entidade {
                         index = 0;
                 }
             }
+        }else{
+            if(Game.rand.nextInt(100)<10) {
+                Jogador.vida--;
+            }
+        }
+    }
+
+    public boolean taBatendoNoPlayer(){
+        Rectangle inimigo = new Rectangle(this.getX(),this.getY(),20,30);
+        Rectangle jogador = new Rectangle(Game.jogador.getX(),Game.jogador.getY(),20,30);
+        return inimigo.intersects(jogador);
     }
 
     public boolean taBatendo (int proximoX,int proximoY){
