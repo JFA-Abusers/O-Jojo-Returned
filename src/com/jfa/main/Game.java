@@ -26,7 +26,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public static final int WIDTH = 640;
     public static final int HEIGHT = 360;
     public static final int SCALE = 2;
-    public static String ESTADO_DO_JOGO= "NORMAL";
+    public static String ESTADO_DO_JOGO= "CUTSCENE";
     private boolean resetar =false;
     //_________________________CLASSES INVOCADAS
     public static JFrame frame;
@@ -101,10 +101,15 @@ public class Game extends Canvas implements Runnable, KeyListener {
     }
 
     public void tick(){
-        if(ESTADO_DO_JOGO=="NORMAL") {
-            for (Entidade e : entidades) {
+        if(ESTADO_DO_JOGO=="NORMAL" || ESTADO_DO_JOGO=="CUTSCENE") {
+            for (Inimigo i : inimigos) {
 
-                e.tick();
+                i.tick();
+            }
+            if(ESTADO_DO_JOGO=="CUTSCENE"){
+                jogador.tickCutscene();
+            }else if(ESTADO_DO_JOGO=="NORMAL"){
+                jogador.tick();
             }
         }else if (ESTADO_DO_JOGO=="PERDEU"){
             if(resetar) {
@@ -125,7 +130,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         //entidades.add(new Inimigo(0,0,64,64,spritesheet.pegaSprite(0,0,64,64)));
 
         addKeyListener(this);
-        ESTADO_DO_JOGO = "NORMAL";
+        ESTADO_DO_JOGO = "CUTSCENE";
     }
 
     public void render(){
@@ -150,6 +155,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
         g.drawImage(image, 0, 0,WIDTH*SCALE, HEIGHT*SCALE,null);
         if (ESTADO_DO_JOGO=="PERDEU")
             gg.render(g);
+        if(ESTADO_DO_JOGO=="CUTSCENE")
+            jogador.renderCutscene(g);
         bs.show();
     }
 
