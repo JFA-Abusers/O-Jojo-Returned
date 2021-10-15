@@ -19,6 +19,7 @@ public class Jogador extends Entidade{
     private BufferedImage[] manoCima;
     private BufferedImage[] manoBaixo;
     public int direita__dir=0, esquerda__dir=1,cima__dir=2,baixo__dir=3,dir=0;
+    public static double vida = 100, vidaMaxima= 100;
 
     public Jogador(int x, int y, int width, int height, BufferedImage sprite) {
         super(x, y, width, height, sprite);
@@ -85,6 +86,10 @@ public class Jogador extends Entidade{
                     index=0;
             }
         }
+        if(Jogador.vida<=0){
+            Game.ESTADO_DO_JOGO="PERDEU";
+        }
+
         Camera.x = Camera.Clamp(this.getX() - (Game.WIDTH/2),0, Mundo.WIDTH*64 - Game.WIDTH);
         Camera.y =Camera.Clamp(this.getY() - (Game.HEIGHT/2),0,Mundo.HEIGHT*64 - Game.HEIGHT);
     }
