@@ -10,7 +10,7 @@ public class Entidade {
 
     protected BufferedImage sprite;
     protected int width, height;
-    protected double  x, y;
+    public double  x, y;
 //testando o github jdsadjsajlsa
 
     public Entidade(int x, int y, int width, int height, BufferedImage sprite){

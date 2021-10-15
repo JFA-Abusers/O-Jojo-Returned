@@ -11,7 +11,7 @@ public class Jogador extends Entidade{
 
     public boolean cima,embaixo,esquerda,direita;
     public double velocidade = 3.0;
-    private boolean mexeu =false;
+    public boolean mexeu =false;
 
     private int frames = 0, maxFrames=6, index =0, maxIndex=4;
     private BufferedImage[] manoDireita;
@@ -57,13 +57,32 @@ public class Jogador extends Entidade{
     public void tick(){
         mexeu=false;
         movimentacaoDoPlayer();
-        frameRate();
         if(Jogador.vida<=0){
             Game.ESTADO_DO_JOGO="PERDEU";
         }
+    }
 
-        Camera.x = Camera.Clamp(this.getX() - (Game.WIDTH/2),0, Mundo.WIDTH*64 - Game.WIDTH);
-        Camera.y =Camera.Clamp(this.getY() - (Game.HEIGHT/2),0,Mundo.HEIGHT*64 - Game.HEIGHT);
+    public void tickCutscene(){
+        if(this.getX()<1000){
+            dir=direita__dir;
+            mexeu=true;
+            x+=velocidade;
+        }else if(this.getX()>=1000 && this.getY()<1000){
+            dir=baixo__dir;
+            mexeu=true;
+            y+=velocidade;
+        }
+        if(this.getX()>=1000 && this.getY()>=1000) {
+            mexeu = false;
+            Game.ESTADO_DO_JOGO = "NORMAL";
+            index=0;
+        }
+    }
+
+    public void renderCutscene(Graphics g){
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setColor(new Color(0,0,0,100));
+        g2.fillRect(0,0, Game.WIDTH*Game.SCALE, Game.HEIGHT*Game.SCALE);
     }
 
     private void movimentacaoDoPlayer(){
@@ -102,6 +121,9 @@ public class Jogador extends Entidade{
     }
 
     public void render(Graphics g){
+        Camera.x = Camera.Clamp(this.getX() - (Game.WIDTH/2),0, Mundo.WIDTH*64 - Game.WIDTH);
+        Camera.y =Camera.Clamp(this.getY() - (Game.HEIGHT/2),0,Mundo.HEIGHT*64 - Game.HEIGHT);
+        frameRate();
         if(dir==direita__dir)
             g.drawImage(manoDireita[index],this.getX() - Camera.x ,this.getY() - Camera.y,null);
         else if(dir==esquerda__dir)
