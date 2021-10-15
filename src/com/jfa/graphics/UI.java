@@ -13,7 +13,5 @@ public class UI {
             g.setColor(Color.red);
             g.fillRect(550+(int)((Jogador.vida/Jogador.vidaMaxima)*80), 5, 3, 15);
         }
-
     }
-
 }
