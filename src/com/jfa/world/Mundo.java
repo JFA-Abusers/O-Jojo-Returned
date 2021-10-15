@@ -21,51 +21,55 @@ public class Mundo {
             HEIGHT= mapa.getHeight();
             tiles = new Tile[mapa.getWidth()* mapa.getHeight()];
             mapa.getRGB(0,0, mapa.getWidth(), mapa.getHeight(), pixels, 0, mapa.getWidth());
-            for(int xx = 0; xx < mapa.getWidth(); xx++) {
-                for (int yy = 0; yy < mapa.getHeight(); yy++) {
-                    int pixelAtual = pixels[xx + (yy * mapa.getWidth())];
-                    tiles[xx+ (yy*WIDTH)]= new ChaoTile(xx*64,yy*64,Tile.TILE_CHAO);
-                    if (pixelAtual == 0xFF000000) {
-                        //chao
-                        tiles[xx+ (yy*WIDTH)]= new ChaoTile(xx*64,yy*64,Tile.TILE_CHAO);
-                    } else if (pixelAtual == 0xFFFF3DD1) {
-                        //paredes laterais
-                        tiles[xx+ (yy*WIDTH)]= new ParedeVerticalTile(xx*64,yy*64,Tile.TILE_PAREDE_VERTICAL);
-                    } else if (pixelAtual == 0xFFFF8377) {
-                        //canto superior esquerdo
-                        tiles[xx+ (yy*WIDTH)]= new CantoEsquerdaTile(xx*64,yy*64, Tile.TILE_CANTO_ESQUERDA);
-                    } else if (pixelAtual == 0xFFBDFF3A) {
-                        //canto superior direito
-                        tiles[xx+ (yy*WIDTH)]= new CantoDireitaTIle(xx*64, yy*64, Tile.TILE_CANTO_DIREITA);
-                    } else if (pixelAtual == 0xFFFFFFFF) {
-                        //parede de cima
-                        tiles[xx+ (yy*WIDTH)]= new ParedeCimaTile(xx*64, yy*64, Tile.TILE_PAREDE_CIMA);
-                    } else if (pixelAtual == 0xFF444444) {
-                        //lapides
-                        tiles[xx+ (yy*WIDTH)]= new LapideTile(xx*64, yy*64, Tile.TILE_LAPIDE);
-                    } else if (pixelAtual == 0xFFB5B5B5) {
-                        //chão chique
-                        tiles[xx+ (yy*WIDTH)]= new ChaoTile(xx*64, yy*64, Tile.TILE_CHAO_CHIQUE);
-                    } else if (pixelAtual == 0xFFC4CC35) {
-                        //chão chiquerrimo
-                        tiles[xx+ (yy*WIDTH)]= new ChaoTile(xx*64, yy*64, Tile.TILE_CHAO_CHIQUERRIMO);
-                    }else if(pixelAtual==0xFFFFFC5B){
-                        tiles[xx+ (yy*WIDTH)]= new LapideTile(xx*64, yy*64, Tile.TILE_CHAO_BORDA);
-                    }else if(pixelAtual== 0xFF0C5DFF) {
-                        Game.jogador.setX(xx*64);
-                        Game.jogador.setY(yy*64);
-                    }else if(pixelAtual==0xFFFF0000){
-                        Inimigo inimigo = new Inimigo(xx*64,yy*64,64,64,Game.spritesheet.pegaSprite(0,0,64,64));
-                        Game.entidades.add(inimigo);
-                        Game.inimigos.add(inimigo);
-
-                    }else {
-                        tiles[xx+ (yy*WIDTH)]= new ChaoTile(xx*64,yy*64,Tile.TILE_CHAO);
-                    }
-                }
-            }
+            criacaoDoMapa(mapa.getWidth(), mapa.getHeight(), pixels);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void criacaoDoMapa(int tamanhoX, int tamanhoY, int[]pixels){
+        for(int xx = 0; xx < tamanhoX; xx++) {
+            for (int yy = 0; yy < tamanhoY; yy++) {
+                int pixelAtual = pixels[xx + (yy * tamanhoX)];
+                tiles[xx+ (yy*WIDTH)]= new ChaoTile(xx*64,yy*64,Tile.TILE_CHAO);
+                if (pixelAtual == 0xFF000000) {
+                    //chao
+                    tiles[xx+ (yy*WIDTH)]= new ChaoTile(xx*64,yy*64,Tile.TILE_CHAO);
+                } else if (pixelAtual == 0xFFFF3DD1) {
+                    //paredes laterais
+                    tiles[xx+ (yy*WIDTH)]= new ParedeVerticalTile(xx*64,yy*64,Tile.TILE_PAREDE_VERTICAL);
+                } else if (pixelAtual == 0xFFFF8377) {
+                    //canto superior esquerdo
+                    tiles[xx+ (yy*WIDTH)]= new CantoEsquerdaTile(xx*64,yy*64, Tile.TILE_CANTO_ESQUERDA);
+                } else if (pixelAtual == 0xFFBDFF3A) {
+                    //canto superior direito
+                    tiles[xx+ (yy*WIDTH)]= new CantoDireitaTIle(xx*64, yy*64, Tile.TILE_CANTO_DIREITA);
+                } else if (pixelAtual == 0xFFFFFFFF) {
+                    //parede de cima
+                    tiles[xx+ (yy*WIDTH)]= new ParedeCimaTile(xx*64, yy*64, Tile.TILE_PAREDE_CIMA);
+                } else if (pixelAtual == 0xFF444444) {
+                    //lapides
+                    tiles[xx+ (yy*WIDTH)]= new LapideTile(xx*64, yy*64, Tile.TILE_LAPIDE);
+                } else if (pixelAtual == 0xFFB5B5B5) {
+                    //chão chique
+                    tiles[xx+ (yy*WIDTH)]= new ChaoTile(xx*64, yy*64, Tile.TILE_CHAO_CHIQUE);
+                } else if (pixelAtual == 0xFFC4CC35) {
+                    //chão chiquerrimo
+                    tiles[xx+ (yy*WIDTH)]= new ChaoTile(xx*64, yy*64, Tile.TILE_CHAO_CHIQUERRIMO);
+                }else if(pixelAtual==0xFFFFFC5B){
+                    tiles[xx+ (yy*WIDTH)]= new LapideTile(xx*64, yy*64, Tile.TILE_CHAO_BORDA);
+                }else if(pixelAtual== 0xFF0C5DFF) {
+                    Game.jogador.setX(xx*64);
+                    Game.jogador.setY(yy*64);
+                }else if(pixelAtual==0xFFFF0000){
+                    Inimigo inimigo = new Inimigo(xx*64,yy*64,64,64,Game.spritesheet.pegaSprite(0,0,64,64));
+                    Game.entidades.add(inimigo);
+                    Game.inimigos.add(inimigo);
+
+                }else {
+                    tiles[xx+ (yy*WIDTH)]= new ChaoTile(xx*64,yy*64,Tile.TILE_CHAO);
+                }
+            }
         }
     }
 

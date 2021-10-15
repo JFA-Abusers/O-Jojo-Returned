@@ -56,6 +56,17 @@ public class Jogador extends Entidade{
 
     public void tick(){
         mexeu=false;
+        movimentacaoDoPlayer();
+        frameRate();
+        if(Jogador.vida<=0){
+            Game.ESTADO_DO_JOGO="PERDEU";
+        }
+
+        Camera.x = Camera.Clamp(this.getX() - (Game.WIDTH/2),0, Mundo.WIDTH*64 - Game.WIDTH);
+        Camera.y =Camera.Clamp(this.getY() - (Game.HEIGHT/2),0,Mundo.HEIGHT*64 - Game.HEIGHT);
+    }
+
+    private void movimentacaoDoPlayer(){
         if(direita && Mundo.taLivre((int)(x+ velocidade),(int)y)) {
             mexeu=true;
             x += velocidade;
@@ -76,7 +87,9 @@ public class Jogador extends Entidade{
             y += velocidade;
             dir= baixo__dir;
         }
+    }
 
+    private void frameRate(){
         if(mexeu){
             frames++;
             if(frames== maxFrames){
@@ -86,12 +99,6 @@ public class Jogador extends Entidade{
                     index=0;
             }
         }
-        if(Jogador.vida<=0){
-            Game.ESTADO_DO_JOGO="PERDEU";
-        }
-
-        Camera.x = Camera.Clamp(this.getX() - (Game.WIDTH/2),0, Mundo.WIDTH*64 - Game.WIDTH);
-        Camera.y =Camera.Clamp(this.getY() - (Game.HEIGHT/2),0,Mundo.HEIGHT*64 - Game.HEIGHT);
     }
 
     public void render(Graphics g){
