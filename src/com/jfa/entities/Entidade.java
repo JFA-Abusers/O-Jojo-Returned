@@ -58,7 +58,5 @@ public class Entidade {
         g.drawImage(sprite, this.getX() - Camera.x, this.getY()- Camera.y, null);
     }
 
-    public void tick() {
-
-    }
+    public void tick() {}
 }
