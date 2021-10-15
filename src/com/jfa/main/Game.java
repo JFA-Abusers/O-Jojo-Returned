@@ -21,20 +21,22 @@ import java.util.Random;
 
 public class Game extends Canvas implements Runnable, KeyListener {
 
-    public static JFrame frame;
-    private Thread thread;
+    //___________________________CONSTANTES DO JOGO___________________________________________________
     private boolean taRodando = true;
     public static final int WIDTH = 640;
     public static final int HEIGHT = 360;
     public static final int SCALE = 2;
+    public static String ESTADO_DO_JOGO= "NORMAL";
+    private boolean resetar =false;
+    //_________________________CLASSES INVOCADAS
+    public static JFrame frame;
+    private Thread thread;
     private BufferedImage image;
     public static Spritesheet spritesheet;
     public static Random rand;
     public UI ui;
     public GameOver gg;
-    public static String ESTADO_DO_JOGO= "NORMAL";
-    private boolean resetar =false;
-
+    //___________________________VARIÁVEIS ÚNICAS_________________________________________________________
     public static List<Entidade> entidades;
     public static List<Inimigo> inimigos;
     public static Jogador jogador;

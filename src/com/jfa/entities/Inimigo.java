@@ -31,27 +31,8 @@ public class Inimigo extends Entidade {
 
     public void tick() {
         if(!taBatendoNoPlayer()){
-            if ((int) x < Game.jogador.getX() && Mundo.taLivre((int) (x + velocidade), this.getY()) && !taBatendo((int) (x + velocidade), this.getY())) {
-                x += velocidade;
-                dir = direita__dir;
-            } else if ((int) x > Game.jogador.getX() && Mundo.taLivre((int) (x - velocidade), this.getY()) && !taBatendo((int) (x - velocidade), this.getY())) {
-                x -= velocidade;
-                dir = esquerda__dir;
-            }
-            if ((int) y < Game.jogador.getY() && Mundo.taLivre(this.getX(), (int) (y + velocidade)) && !taBatendo(this.getX(), (int) (y + velocidade))) {
-                y += velocidade;
-            } else if ((int) y > Game.jogador.getY() && Mundo.taLivre(this.getX(), (int) (y - velocidade)) && !taBatendo(this.getX(), (int) (y - velocidade))) {
-                y -= velocidade;
-            }
-            if (mexeu) {
-                frames++;
-                if (frames == maxFrames) {
-                    frames = 0;
-                    index++;
-                    if (index > maxIndex)
-                        index = 0;
-                }
-            }
+            movimentacaoDoInimigo();
+            frameRate();
         }else{
             if(Game.rand.nextInt(100)<10) {
                 Jogador.vida--;
@@ -59,13 +40,40 @@ public class Inimigo extends Entidade {
         }
     }
 
-    public boolean taBatendoNoPlayer(){
+    private void movimentacaoDoInimigo(){
+        if ((int) x < Game.jogador.getX() && Mundo.taLivre((int) (x + velocidade), this.getY()) && !taBatendo((int) (x + velocidade), this.getY())) {
+            x += velocidade;
+            dir = direita__dir;
+        } else if ((int) x > Game.jogador.getX() && Mundo.taLivre((int) (x - velocidade), this.getY()) && !taBatendo((int) (x - velocidade), this.getY())) {
+            x -= velocidade;
+            dir = esquerda__dir;
+        }
+        if ((int) y < Game.jogador.getY() && Mundo.taLivre(this.getX(), (int) (y + velocidade)) && !taBatendo(this.getX(), (int) (y + velocidade))) {
+            y += velocidade;
+        } else if ((int) y > Game.jogador.getY() && Mundo.taLivre(this.getX(), (int) (y - velocidade)) && !taBatendo(this.getX(), (int) (y - velocidade))) {
+            y -= velocidade;
+        }
+    }
+
+    private void frameRate(){
+        if (mexeu) {
+            frames++;
+            if (frames == maxFrames) {
+                frames = 0;
+                index++;
+                if (index > maxIndex)
+                    index = 0;
+            }
+        }
+    }
+
+    private boolean taBatendoNoPlayer(){
         Rectangle inimigo = new Rectangle(this.getX(),this.getY(),20,30);
         Rectangle jogador = new Rectangle(Game.jogador.getX(),Game.jogador.getY(),20,30);
         return inimigo.intersects(jogador);
     }
 
-    public boolean taBatendo (int proximoX,int proximoY){
+    private boolean taBatendo (int proximoX,int proximoY){
         Rectangle inimigoAtual = new Rectangle(proximoX,proximoY,20,30);
 
         for (int i = 0; i<Game.inimigos.size(); i++){
