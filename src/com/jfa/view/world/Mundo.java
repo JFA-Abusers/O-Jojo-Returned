@@ -1,6 +1,6 @@
 package com.jfa.view.world;
 
-import com.jfa.model.entities.Inimigo;
+import com.jfa.view.entities.Inimigo;
 import com.jfa.view.main.Game;
 
 import javax.imageio.ImageIO;

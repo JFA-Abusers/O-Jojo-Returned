@@ -1,6 +1,7 @@
 package com.jfa.dao;
 
 import java.sql.DriverManager;
+import java.sql.Connection;
 
 public class ConexaoUtil {
 
@@ -14,6 +15,7 @@ public class ConexaoUtil {
 
     public static ConexaoUtil getConnection(){
         ConexaoUtil conexaoUtil = null;
+
         if(conexaoUtil==null){
             conexaoUtil = new ConexaoUtil();
             return conexaoUtil;
@@ -22,13 +24,13 @@ public class ConexaoUtil {
         }
     }
 
-    public void Connect(){
+    public Connection Connect(){
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            DriverManager.getConnection(URL, user, senha);
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            return DriverManager.getConnection(URL, user, senha);
         } catch (Exception e){
             System.err.println("Erro na hora de conectar"+e);
         }
+        return null;
     }
-
 }

@@ -1,6 +1,6 @@
 package com.jfa.view.graphics;
 
-import com.jfa.model.entities.Jogador;
+import com.jfa.view.entities.Jogador;
 
 import java.awt.*;
 

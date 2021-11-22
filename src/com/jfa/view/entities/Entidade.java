@@ -1,4 +1,4 @@
-package com.jfa.model.entities;
+package com.jfa.view.entities;
 
 import com.jfa.view.world.Camera;
 

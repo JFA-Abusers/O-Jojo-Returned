@@ -1,9 +1,9 @@
 package com.jfa.view.main;
 
 import com.jfa.view.world.Mundo;
-import com.jfa.model.entities.Entidade;
-import com.jfa.model.entities.Inimigo;
-import com.jfa.model.entities.Jogador;
+import com.jfa.view.entities.Entidade;
+import com.jfa.view.entities.Inimigo;
+import com.jfa.view.entities.Jogador;
 import com.jfa.view.graphics.GameOver;
 import com.jfa.view.graphics.Spritesheet;
 import com.jfa.view.graphics.UI;

@@ -1,4 +1,4 @@
-package com.jfa.model.entities;
+package com.jfa.view.entities;
 
 import com.jfa.view.world.Camera;
 import com.jfa.view.world.Mundo;
@@ -12,6 +12,28 @@ public class Jogador extends Entidade{
     public boolean cima,embaixo,esquerda,direita;
     public double velocidade = 3.0;
     public boolean mexeu =false;
+    private int ondasSobrevividas;
+    private String nome;
+
+    public int getOndasSobrevividas() {
+        return ondasSobrevividas;
+    }
+
+    public void setOndasSobrevividas(int ondasSobrevividas) {
+        this.ondasSobrevividas = ondasSobrevividas;
+    }
+
+
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+
 
     private int frames = 0, maxFrames=6, index =0, maxIndex=4;
     private BufferedImage[] manoDireita;
