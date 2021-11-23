@@ -43,6 +43,7 @@ public class Inimigo extends Entidade {
         tomouBala();
         if(life<=0){
             autoDestruir();
+            Game.jogador.pontos++;
             return;
         }
     }
@@ -67,16 +68,16 @@ public class Inimigo extends Entidade {
     }
 
     private void movimentacaoDoInimigo(){
-        if ((int) x < Game.jogador.getX() && Mundo.taLivre((int) (x + velocidade), this.getY()) && !taBatendo((int) (x + velocidade), this.getY())) {
+        if ((int) x < Game.jogador.getX() && Mundo.taLivre((int) (x + velocidade), this.getY()) && !taBatendoNele((int) (x + velocidade), this.getY())) {
             x += velocidade;
             dir = direita__dir;
-        } else if ((int) x > Game.jogador.getX() && Mundo.taLivre((int) (x - velocidade), this.getY()) && !taBatendo((int) (x - velocidade), this.getY())) {
+        } else if ((int) x > Game.jogador.getX() && Mundo.taLivre((int) (x - velocidade), this.getY()) && !taBatendoNele((int) (x - velocidade), this.getY())) {
             x -= velocidade;
             dir = esquerda__dir;
         }
-        if ((int) y < Game.jogador.getY() && Mundo.taLivre(this.getX(), (int) (y + velocidade)) && !taBatendo(this.getX(), (int) (y + velocidade))) {
+        if ((int) y < Game.jogador.getY() && Mundo.taLivre(this.getX(), (int) (y + velocidade)) && !taBatendoNele(this.getX(), (int) (y + velocidade))) {
             y += velocidade;
-        } else if ((int) y > Game.jogador.getY() && Mundo.taLivre(this.getX(), (int) (y - velocidade)) && !taBatendo(this.getX(), (int) (y - velocidade))) {
+        } else if ((int) y > Game.jogador.getY() && Mundo.taLivre(this.getX(), (int) (y - velocidade)) && !taBatendoNele(this.getX(), (int) (y - velocidade))) {
             y -= velocidade;
         }
     }
@@ -99,7 +100,7 @@ public class Inimigo extends Entidade {
         return inimigo.intersects(jogador);
     }
 
-    private boolean taBatendo (int proximoX,int proximoY){
+    public boolean taBatendoNele (int proximoX,int proximoY){
         Rectangle inimigoAtual = new Rectangle(proximoX,proximoY,20,30);
 
         for (int i = 0; i<Game.inimigos.size(); i++){
