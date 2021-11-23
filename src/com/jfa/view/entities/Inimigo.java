@@ -13,12 +13,13 @@ public class Inimigo extends Entidade {
 
     private boolean mexeu = true;
     private double velocidade = 1.0;
+    private double life;
 
     private int frames = 0, maxFrames = 9, index = 0, maxIndex = 2;
     private BufferedImage[] inimigo_esq;
     private BufferedImage[] inimigo_dir;
 
-    public Inimigo(int x, int y, int width, int height, BufferedImage sprite) {
+    public Inimigo(int x, int y, int width, int height, BufferedImage sprite, double life) {
         super(x, y, width, height, sprite);
         inimigo_dir = new BufferedImage[3];
         inimigo_esq = new BufferedImage[3];
@@ -26,6 +27,7 @@ public class Inimigo extends Entidade {
             inimigo_esq[i] = Game.spritesheet.pegaSprite(i * 64, 192, 64, 64);
             inimigo_dir[i] = Game.spritesheet.pegaSprite((i * 64) + 192, 192, 64, 64);
         }
+        this.life= life;
     }
 
 
@@ -36,6 +38,30 @@ public class Inimigo extends Entidade {
         }else{
             if(Game.rand.nextInt(100)<10) {
                 Jogador.vida--;
+            }
+        }
+        tomouBala();
+        if(life<=0){
+            autoDestruir();
+            return;
+        }
+    }
+
+    private void autoDestruir() {
+        Game.entidades.remove(this);
+        Game.inimigos.remove(this);
+    }
+
+    private void tomouBala(){
+        for(int i =0; i< Game.entidades.size(); i++){
+            Entidade e = Game.entidades.get(i);
+            if(e instanceof Magia){
+                if(Entidade.taBatendo(this,e)){
+                    life--;
+                    Game.entidades.remove(e);
+                    Game.magias.remove(e);
+                    return;
+                }
             }
         }
     }

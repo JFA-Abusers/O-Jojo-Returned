@@ -62,7 +62,7 @@ public class Mundo {
                     Game.jogador.setX(xx*64);
                     Game.jogador.setY(yy*64);
                 }else if(pixelAtual==0xFFFF0000){
-                    Inimigo inimigo = new Inimigo(xx*64,yy*64,64,64,Game.spritesheet.pegaSprite(0,0,64,64));
+                    Inimigo inimigo = new Inimigo(xx*64,yy*64,64,64,Game.spritesheet.pegaSprite(0,0,64,64),10+Game.wave*1.5);
                     Game.entidades.add(inimigo);
                     Game.inimigos.add(inimigo);
 

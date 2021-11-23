@@ -10,6 +10,7 @@ public class Entidade {
     protected BufferedImage sprite;
     protected int width, height;
     public double  x, y;
+    protected int maskx, masky,mwidth, mheight;
 //testando o github jdsadjsajlsa
 
     public Entidade(int x, int y, int width, int height, BufferedImage sprite){
@@ -18,6 +19,17 @@ public class Entidade {
         this.width = width;
         this.height = height;
         this.sprite = sprite;
+        this.maskx = 0;
+        this.masky = 0;
+        this.mwidth =width;
+        this.mheight = height;
+    }
+
+    public void setMask(int maskx, int masky, int mheight, int mwidth){
+        this.maskx = maskx;
+        this.masky = masky;
+        this.mheight = mheight;
+        this.mwidth = mwidth;
     }
     /// mudança
 
@@ -58,4 +70,11 @@ public class Entidade {
     }
 
     public void tick() {}
+
+    public static boolean taBatendo(Entidade e1, Entidade e2){
+        Rectangle e1Mask = new Rectangle(e1.getX()+ e1.maskx, e1.getY()+e1.masky,20,20);
+        Rectangle e2Mask = new Rectangle(e2.getX()+ e2.maskx, e2.getY()+e2.masky,20,20);
+
+        return e1Mask.intersects(e2Mask);
+    }
 }

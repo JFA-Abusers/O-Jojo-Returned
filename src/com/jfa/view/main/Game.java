@@ -1,5 +1,6 @@
 package com.jfa.view.main;
 
+import com.jfa.view.entities.Magia;
 import com.jfa.view.world.Mundo;
 import com.jfa.view.entities.Entidade;
 import com.jfa.view.entities.Inimigo;
@@ -39,8 +40,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
     //___________________________VARIÁVEIS ÚNICAS_________________________________________________________
     public static List<Entidade> entidades;
     public static List<Inimigo> inimigos;
+    public static List<Magia> magias;
     public static Jogador jogador;
     public static Mundo mundo;
+    public static int wave =1;
 
 
     public static void main(String[] args) {
@@ -75,7 +78,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         rand= new Random();
         gg = new GameOver();
         //_______________________________________________________________________________________
-
+        magias = new ArrayList<>();
         entidades = new ArrayList<Entidade>();
         inimigos = new ArrayList<Inimigo>();
         spritesheet = new Spritesheet("/Spritesheet.png");
@@ -102,14 +105,17 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     public void tick(){
         if(ESTADO_DO_JOGO=="NORMAL" || ESTADO_DO_JOGO=="CUTSCENE") {
-            for (Inimigo i : inimigos) {
+            for (int i =0; i<Game.inimigos.size(); i++) {
 
-                i.tick();
+                Game.inimigos.get(i).tick();
             }
             if(ESTADO_DO_JOGO=="CUTSCENE"){
                 jogador.tickCutscene();
             }else if(ESTADO_DO_JOGO=="NORMAL"){
                 jogador.tick();
+                for(int i =0; i<Game.magias.size(); i++){
+                    Game.magias.get(i).tick();
+                }
             }
         }else if (ESTADO_DO_JOGO=="PERDEU"){
             if(resetar) {
@@ -147,8 +153,11 @@ public class Game extends Canvas implements Runnable, KeyListener {
         g.fillRect(0,0,WIDTH, HEIGHT);
         //Graphics2D g2 = (Graphics2D) g;
         mundo.render(g);
-        for(Entidade e : entidades){
-            e.render(g);
+        for(int i =0; i<Game.entidades.size(); i++){
+            Game.entidades.get(i).render(g);
+        }
+        for(int i =0; i<Game.magias.size(); i++){
+            Game.magias.get(i).render(g);
         }
         ui.render(g);
         g.dispose();
@@ -208,6 +217,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
             //System.out.println("embaixo");
             jogador.embaixo= true;
         }
+        if(e.getKeyCode()==KeyEvent.VK_J){
+            jogador.atirou = true;
+        }
         if(ESTADO_DO_JOGO=="PERDEU" && e.getKeyCode() == KeyEvent.VK_ENTER){
             resetar = true;
         }
@@ -228,6 +240,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
         }else if(e.getKeyCode()== KeyEvent.VK_S){
             //System.out.println("embaixo");
             jogador.embaixo= false;
+        }
+        if(e.getKeyCode()==KeyEvent.VK_J){
+            jogador.atirou = false;
         }
         if(ESTADO_DO_JOGO=="PERDEU" && e.getKeyCode() == KeyEvent.VK_ENTER){
             resetar = false;

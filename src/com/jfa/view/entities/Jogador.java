@@ -14,6 +14,7 @@ public class Jogador extends Entidade{
     public boolean mexeu =false;
     private int ondasSobrevividas;
     private String nome;
+    public boolean atirou = false;
 
     public int getOndasSobrevividas() {
         return ondasSobrevividas;
@@ -79,6 +80,7 @@ public class Jogador extends Entidade{
     public void tick(){
         mexeu=false;
         movimentacaoDoPlayer();
+        atirar();
         if(Jogador.vida<=0){
             Game.ESTADO_DO_JOGO="PERDEU";
         }
@@ -99,6 +101,23 @@ public class Jogador extends Entidade{
             Game.ESTADO_DO_JOGO = "NORMAL";
             index=0;
         }
+    }
+
+    public void atirar(){
+        int dx=1;
+        if(atirou){
+            System.out.println("atirou");
+            atirou = false;
+            if(dir== direita__dir){
+                dx=1;
+            }else {
+                dx = -1;
+            }
+            Magia magia = new Magia(this.getX(), this.getY(),64,64,Game.spritesheet.pegaSprite(256+ 64, 128, 64, 64), dx,0);
+            Game.entidades.add(magia);
+            Game.magias.add(magia);
+        }
+
     }
 
     public void renderCutscene(Graphics g){
