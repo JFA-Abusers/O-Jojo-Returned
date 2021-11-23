@@ -15,6 +15,8 @@ public class Jogador extends Entidade{
     private int ondasSobrevividas;
     private String nome;
     public boolean atirou = false;
+    public int pontos = 0;
+    public int id;
 
     public int getOndasSobrevividas() {
         return ondasSobrevividas;

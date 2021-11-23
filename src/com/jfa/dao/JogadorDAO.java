@@ -6,12 +6,14 @@ import com.mysql.cj.jdbc.JdbcPreparedStatement;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JogadorDAO {
 
-    public void inserir(JogadorModel jogador){
+    public int inserir(JogadorModel jogador){
+        int id = 1;
         String sql = "INSERT INTO player(nome,ondas_sobrevividas) VALUES(?,?)";
 
         Connection conn = ConexaoUtil.getConnection().Connect();
@@ -19,12 +21,21 @@ public class JogadorDAO {
 
         try{
             conn = ConexaoUtil.getConnection().Connect();
-            pstm = (JdbcPreparedStatement) conn.prepareStatement(sql);
+            pstm = (JdbcPreparedStatement) conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             pstm.setString(1, jogador.getNome());
             pstm.setInt(2,jogador.getOndas_sobrevividas());
 
             pstm.execute();
+            try{
+                ResultSet generatedKeys = pstm.getGeneratedKeys();
+                if(generatedKeys.next()){
+                    id=generatedKeys.getInt(1);
+                }
+            }catch (Exception e){
+
+            }
+
         }catch(Exception e){
             e.printStackTrace();
         }finally {
@@ -39,7 +50,9 @@ public class JogadorDAO {
                 e.printStackTrace();
             }
         }
+        return id;
     }
+
 
     public List<JogadorModel> getJogadores() {
         String sql = "SELECT * FROM player";

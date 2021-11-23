@@ -5,6 +5,9 @@ public class JogadorModel {
     private int ondas_sobrevividas;
     private int id;
 
+    public JogadorModel(){
+
+    }
 
     public String getNome() {
         return nome;
